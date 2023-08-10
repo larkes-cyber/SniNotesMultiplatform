@@ -1,0 +1,33 @@
+CREATE TABLE noteEntity(
+    id TEXT NOT NULL PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    text TEXT NOT NULL,
+    color INTEGER NOT NULL,
+    onlinesync INTEGER AS Boolean DEFAULT NULL,
+    visible INTEGER AS Boolean DEFAULT NULL,
+    timestamp INTEGER NOT NULL
+);
+insertNote:
+INSERT OR REPLACE
+INTO `noteEntity`(
+    id,
+    title,
+    text,
+    color,
+    onlinesync,
+    visible,
+    timestamp
+)VALUES(?,?,?,?,?, ?, ?);
+
+observeNotes:
+SELECT *
+FROM noteEntity;
+
+observeNoteById:
+SELECT *
+FROM noteEntity
+WHERE id = ?;
+
+nukeNotes:
+DELETE FROM `noteEntity`;
+
