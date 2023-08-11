@@ -4,14 +4,15 @@ import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kmpsninotes.android.domain.model.Note
-import com.example.kmpsninotes.android.domain.repository.NoteRepository
-import com.example.kmpsninotes.android.presentation.screen.login.LoginUiState
+import com.example.domain.model.Note
+import com.example.domain.repository.NoteRepository
+
 import com.example.kmpsninotes.android.until.TimeService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -54,7 +55,7 @@ class NoteDetailViewModel @Inject constructor(
     fun databaseSync(){
         viewModelScope.launch {
 
-            val noteId = if(savedStateHandle.get<String>("id") == "null") null else savedStateHandle.get<String>("id")!!
+            val noteId = if(savedStateHandle.get<String>("id") == "null") UUID.randomUUID().toString() else savedStateHandle.get<String>("id")!!
             val note = Note(
                 id = noteId,
                 title = _uiState.value.title,
@@ -64,9 +65,9 @@ class NoteDetailViewModel @Inject constructor(
                 timestamp = if(_uiState.value.timestamp == null) TimeService.getCurrentTimeInMilliseconds() else _uiState.value.timestamp!!
             )
 
-            val serverSyncRes = noteRepository.noteSyncWithServer(note)
-            note.online_sync = serverSyncRes.data != null
-            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id = serverSyncRes.data
+//            val serverSyncRes = noteRepository.noteSyncWithServer(note)
+//            note.online_sync = serverSyncRes.data != null
+//            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id = serverSyncRes.data
 
             noteRepository.insertNote(note)
             _uiState.value = uiState.value.copy(noteHasBeenEdited = true)

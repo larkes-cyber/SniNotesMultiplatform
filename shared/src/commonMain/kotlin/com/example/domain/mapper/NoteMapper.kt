@@ -11,7 +11,7 @@ fun Note.toNoteData():NoteData{
         text = text,
         title = title,
         online_sync = online_sync,
-        visible = visible!!
+        visible = visible
     )
 }
 
@@ -23,6 +23,6 @@ fun NoteData.toNote():Note{
         text = text,
         title = title,
         online_sync = online_sync,
-        visible = visible!!
+        visible = visible
     )
 }

@@ -53,19 +53,18 @@ fun NotesScreen(
 ) {
 
     val notesUiState by viewModel.notesUiState.collectAsState()
-    val userUiState by viewModel.userUiState.collectAsState()
+ //   val userUiState by viewModel.userUiState.collectAsState()
     val refreshingUiState by viewModel.refreshingUiState.collectAsState()
 
     val scaffoldState = rememberScaffoldState()
     val coroutineScope = rememberCoroutineScope()
 
 
-
-    LaunchedEffect(userUiState.hasBeenQuit){
-        if(userUiState.hasBeenQuit){
-            navController.navigate(Screen.LoginScreen.route)
-        }
-    }
+//    LaunchedEffect(userUiState.hasBeenQuit){
+//        if(userUiState.hasBeenQuit){
+//            navController.navigate(Screen.LoginScreen.route)
+//        }
+//    }
 
     Scaffold(
 
@@ -138,12 +137,12 @@ fun NotesScreen(
                   verticalArrangement = Arrangement.spacedBy(30.dp),
                   horizontalAlignment = Alignment.CenterHorizontally
               ) {
-                  if(userUiState.user != null) {
-                      Text(
-                          text = userUiState.user!!.name,
-                          style = MaterialTheme.typography.h5.copy(color = AppTheme.colors.primaryTitleColor)
-                      )
-                  }
+//                  if(userUiState.user != null) {
+//                      Text(
+//                          text = userUiState.user!!.name,
+//                          style = MaterialTheme.typography.h5.copy(color = AppTheme.colors.primaryTitleColor)
+//                      )
+//                  }
                   NotesPrimaryButton(
                       text = "quit",
                       modifier = Modifier

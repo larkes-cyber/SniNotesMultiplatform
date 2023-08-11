@@ -25,9 +25,12 @@ fun SplashScreen(
 
     val uiState by viewModel.uiState.collectAsState()
 
-    LaunchedEffect(uiState.status){
-        if(uiState.status != null) navController.navigate(uiState.status!!)
+    LaunchedEffect(Unit){
+        navController.navigate(Screen.NotesScreen.route)
     }
+//    LaunchedEffect(uiState.status){
+//        if(uiState.status != null) navController.navigate(uiState.status!!)
+//    }
 
     Box(
         modifier = Modifier.fillMaxSize(),

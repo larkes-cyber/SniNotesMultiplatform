@@ -1,6 +1,7 @@
 package com.example.kmpsninotes.android.presentation.screen.notes
 
-import com.example.kmpsninotes.android.domain.model.Note
+import com.example.domain.model.Note
+
 
 data class NotesUiState(
     val isLoading:Boolean = false,

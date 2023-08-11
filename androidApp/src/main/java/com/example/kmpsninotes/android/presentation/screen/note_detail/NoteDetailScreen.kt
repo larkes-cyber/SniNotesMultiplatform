@@ -95,6 +95,7 @@ fun NoteDetailScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(it)
                 .padding(top = 40.dp)
                 .padding(start = 20.dp, end = 12.dp)
         ) {

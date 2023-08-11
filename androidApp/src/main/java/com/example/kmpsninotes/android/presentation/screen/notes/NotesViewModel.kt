@@ -19,8 +19,8 @@ class NotesViewModel @Inject constructor(
     private val _notesUiState = MutableStateFlow(NotesUiState())
     val notesUiState:StateFlow<NotesUiState> = _notesUiState
 
-    private val _userUiState = MutableStateFlow(UserUiState())
-    val userUiState:StateFlow<UserUiState> = _userUiState
+//    private val _userUiState = MutableStateFlow(UserUiState())
+//    val userUiState:StateFlow<UserUiState> = _userUiState
 
     private val _refreshingUiState = MutableStateFlow(false)
     val refreshingUiState:StateFlow<Boolean> = _refreshingUiState
@@ -59,11 +59,11 @@ class NotesViewModel @Inject constructor(
 
     fun deleteNotes(){
         viewModelScope.launch {
-//            notesUiState.value.selectedNotes.forEach { note ->
-//                noteRepository.deleteNote(note)
-//            }
-//            _notesUiState.value = NotesUiState()
-//            observeNotes()
+            notesUiState.value.selectedNotes.forEach { note ->
+                noteRepository.deleteNote(note)
+            }
+            _notesUiState.value = NotesUiState()
+            observeNotes()
         }
     }
 
@@ -80,7 +80,7 @@ class NotesViewModel @Inject constructor(
 
     fun quitApp(){
        // userRepository.deleteUser()
-        _userUiState.value = userUiState.value.copy(hasBeenQuit = true)
+    //    _userUiState.value = userUiState.value.copy(hasBeenQuit = true)
     }
 
 }
