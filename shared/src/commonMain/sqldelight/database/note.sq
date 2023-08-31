@@ -28,6 +28,10 @@ SELECT *
 FROM noteEntity
 WHERE id = ?;
 
+deleteNote:
+DELETE FROM `noteEntity`
+WHERE id = ?;
+
 nukeNotes:
 DELETE FROM `noteEntity`;
 

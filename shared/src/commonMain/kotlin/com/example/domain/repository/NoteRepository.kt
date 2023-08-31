@@ -9,4 +9,8 @@ interface NoteRepository {
     suspend fun observeNotes():List<Note>
     suspend fun observeNoteById(id:String): Note
     suspend fun deleteNote(noteEntity: Note)
+    suspend fun pushNote(note: Note):Resource<String>
+    suspend fun updateNote(note:Note):Resource<String>
+    suspend fun noteSyncWithServer(note: Note, online:Boolean):Resource<String>
+    suspend fun notesSynchronization(online:Boolean): Resource<String>
 }

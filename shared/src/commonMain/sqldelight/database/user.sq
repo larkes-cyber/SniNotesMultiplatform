@@ -1,0 +1,25 @@
+CREATE TABLE userEntity(
+    session TEXT NOT NULL PRIMARY KEY,
+    login TEXT NOT NULL,
+    password TEXT NOT NULL,
+    name TEXT NOT NULL
+);
+
+insertUser:
+INSERT OR REPLACE
+INTO `userEntity`(
+
+    session,
+    login,
+    password,
+    name
+)VALUES(?,?,?,?);
+
+observeUser:
+SELECT *
+FROM userEntity;
+
+deleteUser:
+DELETE FROM `userEntity`;
+
+

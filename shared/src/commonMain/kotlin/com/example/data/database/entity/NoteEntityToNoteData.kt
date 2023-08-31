@@ -1,8 +1,8 @@
-package com.example.data.entity
+package com.example.data.database.entity
 
 import database.NoteEntity
 
-fun NoteEntity.toNoteData():NoteData{
+fun NoteEntity.toNoteData(): NoteData {
     return NoteData(
         id = id,
         color = color,

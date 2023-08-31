@@ -1,12 +1,12 @@
-package com.example.data.source
+package com.example.data.database.source
 
-import com.example.data.entity.NoteData
-import com.example.data.entity.toNoteData
+import com.example.data.database.entity.NoteData
+import com.example.data.database.entity.toNoteData
 import com.example.kmpsninotes.database.NoteDatabase
 
 class NoteDatabaseDataSourceImpl(
    private val db: NoteDatabase
-):NoteDatabaseDataSource {
+): NoteDatabaseDataSource {
 
     private val queries = db.noteQueries
 
@@ -31,6 +31,7 @@ class NoteDatabaseDataSourceImpl(
     }
 
     override suspend fun deleteNote(noteData: NoteData) {
+        queries.deleteNote(noteData.id)
     }
 
     override suspend fun nukeNotes() {

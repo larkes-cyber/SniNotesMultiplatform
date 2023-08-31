@@ -1,4 +1,4 @@
-package com.example.data.entity
+package com.example.data.database.entity
 
 class NoteData(
     var id:String,

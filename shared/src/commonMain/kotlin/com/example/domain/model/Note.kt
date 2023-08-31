@@ -5,7 +5,7 @@ data class Note(
     val title:String,
     val text:String,
     val color:Long,
-    val online_sync:Boolean,
+    var online_sync:Boolean,
     val visible:Boolean = true,
     val timestamp: Long
 ){

@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Note
 import com.example.domain.repository.NoteRepository
+import com.example.domain.repository.UserRepository
+import com.example.kmpsninotes.android.until.InternetConnectionService
 
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,14 +15,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val userRepository: UserRepository,
+    private val internetConnectionService: InternetConnectionService
 ):ViewModel() {
 
     private val _notesUiState = MutableStateFlow(NotesUiState())
     val notesUiState:StateFlow<NotesUiState> = _notesUiState
 
-//    private val _userUiState = MutableStateFlow(UserUiState())
-//    val userUiState:StateFlow<UserUiState> = _userUiState
+    private val _userUiState = MutableStateFlow(UserUiState())
+    val userUiState:StateFlow<UserUiState> = _userUiState
 
     private val _refreshingUiState = MutableStateFlow(false)
     val refreshingUiState:StateFlow<Boolean> = _refreshingUiState
@@ -68,19 +72,21 @@ class NotesViewModel @Inject constructor(
     }
 
     fun refreshData(){
-//        viewModelScope.launch {
-//            _refreshingUiState.value = true
-//            val res = noteRepository.notesSynchronization()
-//            if(res.data != null){
-//                observeNotes()
-//            }
-//            _refreshingUiState.value = false
-//        }
+        viewModelScope.launch {
+            _refreshingUiState.value = true
+            val res = noteRepository.notesSynchronization(internetConnectionService.isOnline())
+            if(res.data != null){
+                observeNotes()
+            }
+            _refreshingUiState.value = false
+        }
     }
 
     fun quitApp(){
-       // userRepository.deleteUser()
-    //    _userUiState.value = userUiState.value.copy(hasBeenQuit = true)
+        viewModelScope.launch {
+            userRepository.deleteUser()
+            _userUiState.value = userUiState.value.copy(hasBeenQuit = true)
+        }
     }
 
 }

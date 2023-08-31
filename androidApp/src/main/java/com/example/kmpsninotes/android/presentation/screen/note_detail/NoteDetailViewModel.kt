@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.Note
 import com.example.domain.repository.NoteRepository
+import com.example.kmpsninotes.android.until.InternetConnectionService
 
 import com.example.kmpsninotes.android.until.TimeService
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val noteRepository: NoteRepository
+    private val noteRepository: NoteRepository,
+    private val internetConnectionService: InternetConnectionService
 ):ViewModel() {
     private val _uiState = MutableStateFlow(NoteDetailUiState())
     val uiState:StateFlow<NoteDetailUiState> = _uiState
@@ -65,9 +67,10 @@ class NoteDetailViewModel @Inject constructor(
                 timestamp = if(_uiState.value.timestamp == null) TimeService.getCurrentTimeInMilliseconds() else _uiState.value.timestamp!!
             )
 
-//            val serverSyncRes = noteRepository.noteSyncWithServer(note)
-//            note.online_sync = serverSyncRes.data != null
-//            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id = serverSyncRes.data
+            val serverSyncRes = noteRepository.noteSyncWithServer(note,internetConnectionService.isOnline())
+            note.online_sync = serverSyncRes.data != null
+            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id =
+                serverSyncRes.data!!
 
             noteRepository.insertNote(note)
             _uiState.value = uiState.value.copy(noteHasBeenEdited = true)

@@ -1,15 +1,21 @@
 package com.example.data.repository
 
-import com.example.data.source.NoteDatabaseDataSource
+import com.example.data.database.source.NoteDatabaseDataSource
+import com.example.data.database.source.UserDatabaseDataSource
+import com.example.data.remote.source.NoteRemoteDataSource
 import com.example.domain.mapper.toNote
 import com.example.domain.mapper.toNoteData
+import com.example.domain.mapper.toNoteDto
+import com.example.domain.mapper.toUser
 import com.example.domain.model.Note
 import com.example.domain.repository.NoteRepository
 import com.example.until.Resource
 
 
 class DataNoteRepository(
-    private val noteDatabaseDataSource: NoteDatabaseDataSource
+    private val noteDatabaseDataSource: NoteDatabaseDataSource,
+    private val noteRemoteDataSource: NoteRemoteDataSource,
+    private val userDatabaseDataSource: UserDatabaseDataSource
 ):NoteRepository {
 
     override suspend fun insertNote(noteEntity: Note) {
@@ -26,6 +32,60 @@ class DataNoteRepository(
 
     override suspend fun deleteNote(noteEntity: Note) {
         noteDatabaseDataSource.deleteNote(noteEntity.toNoteData())
+    }
+
+    override suspend fun pushNote(note: Note): Resource<String> = noteRemoteDataSource.pushNote(
+        note = note.toNoteDto(),
+        user = userDatabaseDataSource.observeUser().toUser()
+    )
+
+    override suspend fun updateNote(note: Note): Resource<String> = noteRemoteDataSource.updateNote(
+        note = note.toNoteDto(),
+        user = userDatabaseDataSource.observeUser().toUser()
+    )
+
+    override suspend fun noteSyncWithServer(note: Note, online: Boolean):Resource<String> {
+        if(online) {
+            try {
+                val findNoteRes = noteRemoteDataSource.findNote(
+                    note = note.toNoteDto(),
+                    user = userDatabaseDataSource.observeUser()!!.toUser()
+                )
+                if (findNoteRes.message == null) updateNote(note)
+                else {
+                    val id = pushNote(note = note)
+                    noteDatabaseDataSource.deleteNote(note.toNoteData())
+                    return Resource.Success(id.data)
+                }
+                return Resource.Success("Updated")
+            } catch (e: Exception) {
+                return Resource.Error(e.message.toString())
+            }
+        }else{
+            return Resource.Error("No internet connection")
+        }
+    }
+
+    override suspend fun notesSynchronization(online:Boolean): Resource<String> {
+        if(online){
+            val allNotes = observeNotes()
+
+            allNotes.filter { !it.visible }.forEach {
+                deleteNote(it)
+            }
+            allNotes.filter { !it.online_sync }.forEach {
+                noteSyncWithServer(it, online)
+            }
+            noteDatabaseDataSource.nukeNotes()
+
+            val notesFromServer = noteRemoteDataSource.observeNotes(userDatabaseDataSource.observeUser()!!.toUser())
+            if(notesFromServer.data == null) return Resource.Error(notesFromServer.message!!)
+            notesFromServer.data.forEach { insertNote(it.toNote()) }
+
+            return Resource.Success("Success")
+        }else {
+            return Resource.Error("No internet connection")
+        }
     }
 
 }
