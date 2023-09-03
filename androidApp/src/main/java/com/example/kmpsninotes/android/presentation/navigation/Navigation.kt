@@ -6,6 +6,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.kmpsninotes.android.presentation.screen.login.LoginScreen
+import com.example.kmpsninotes.android.presentation.screen.login.LoginScreenViewModel
 import com.example.kmpsninotes.android.presentation.screen.note_detail.NoteDetailScreen
 import com.example.kmpsninotes.android.presentation.screen.note_detail.NoteDetailViewModel
 import com.example.kmpsninotes.android.presentation.screen.notes.NotesScreen
@@ -49,6 +51,13 @@ fun Navigation(navController: NavHostController) {
                 id = id,
                 navController = navController
             )
+        }
+        
+        composable(
+            route = Screen.LoginScreen.route
+        ){
+            val  viewModel:LoginScreenViewModel = hiltViewModel()
+            LoginScreen(navController = navController, viewModel = viewModel)
         }
 
     }

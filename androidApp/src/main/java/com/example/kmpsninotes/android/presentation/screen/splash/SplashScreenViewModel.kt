@@ -25,12 +25,13 @@ class SplashScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val savedUserData = userRepository.getUserData()
-            if(savedUserData == null) _uiState.value = SplashScreenState(status = Screen.LoginScreen.route)
-            else {
+            try {
+                val savedUserData = userRepository.getUserData()
                 _uiState.value = SplashScreenState(isLoading = true)
                 noteRepository.notesSynchronization(internetConnectionService.isOnline())
                 _uiState.value = SplashScreenState(status = Screen.NotesScreen.route)
+            }catch (e:Exception){
+                _uiState.value = SplashScreenState(status = Screen.LoginScreen.route)
             }
         }
     }

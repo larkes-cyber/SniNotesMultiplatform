@@ -11,6 +11,7 @@ class NoteDatabaseDataSourceImpl(
     private val queries = db.noteQueries
 
     override suspend fun insertNote(noteData: NoteData) {
+        println(noteData.visible)
         queries.insertNote(
             id = noteData.id,
             color = noteData.color,

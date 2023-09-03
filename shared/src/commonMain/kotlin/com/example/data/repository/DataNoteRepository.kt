@@ -30,8 +30,17 @@ class DataNoteRepository(
         return noteDatabaseDataSource.observeNoteById(id).toNote()
     }
 
-    override suspend fun deleteNote(noteEntity: Note) {
-        noteDatabaseDataSource.deleteNote(noteEntity.toNoteData())
+    override suspend fun deleteNote(noteEntity: Note, online: Boolean) {
+        if(online) {
+            val serverResponse = noteRemoteDataSource.deleteNote(
+                note = noteEntity.toNoteDto(),
+                user = userDatabaseDataSource.observeUser().toUser()
+            )
+            noteDatabaseDataSource.deleteNote(noteEntity.toNoteData())
+        }else{
+            noteEntity.visible = false
+            insertNote(noteEntity)
+        }
     }
 
     override suspend fun pushNote(note: Note): Resource<String> = noteRemoteDataSource.pushNote(
@@ -70,8 +79,10 @@ class DataNoteRepository(
         if(online){
             val allNotes = observeNotes()
 
+
             allNotes.filter { !it.visible }.forEach {
-                deleteNote(it)
+                println("###############################")
+                deleteNote(it, online)
             }
             allNotes.filter { !it.online_sync }.forEach {
                 noteSyncWithServer(it, online)

@@ -6,7 +6,7 @@ data class Note(
     val text:String,
     val color:Long,
     var online_sync:Boolean,
-    val visible:Boolean = true,
+    var visible:Boolean = true,
     val timestamp: Long
 ){
     companion object {

@@ -5,22 +5,25 @@ import com.example.domain.model.User
 import com.example.until.Resource
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
-import io.ktor.client.plugins.BodyProgress.Plugin.install
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.plugins.kotlinx.serializer.*
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import io.ktor.util.*
+
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.Serializable
 
 class NoteRemoteDataSourceImpl(
 ):NoteRemoteDataSource {
 
     private val client = HttpClient(CIO){
-        install(ContentNegotiation) {
-            json()
+        install(ContentNegotiation){
+            json(Json {
+                prettyPrint = true
+                isLenient = true
+            })
         }
     }
 
@@ -33,9 +36,10 @@ class NoteRemoteDataSourceImpl(
                     parameters.append("email", user.login)
                 }
                 contentType(ContentType.Application.Json)
-                body = note
+                setBody(note)
             }
-            Resource.Success(response.bodyAsText())
+            if(response.status.value == 200) Resource.Success(response.bodyAsText())
+            else Resource.Error(response.bodyAsText())
         }catch (e:Exception) {
             Resource.Error(e.message.toString())
         }
@@ -50,9 +54,10 @@ class NoteRemoteDataSourceImpl(
                     parameters.append("email", user.login)
                 }
                 contentType(ContentType.Application.Json)
-                body = note
+                setBody(note)
             }
-            Resource.Success("ok")
+            if(response.status.value == 200) Resource.Success("ok")
+            else Resource.Error(response.bodyAsText())
         }catch (e:Exception) {
             Resource.Error(e.message.toString())
         }
@@ -68,7 +73,9 @@ class NoteRemoteDataSourceImpl(
                 }
                 contentType(ContentType.Application.Json)
             }
-            Resource.Success("Ok")
+            println(response.bodyAsText())
+            if(response.status.value == 200) Resource.Success("Ok")
+            else Resource.Error(response.bodyAsText())
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }
@@ -84,7 +91,8 @@ class NoteRemoteDataSourceImpl(
                 }
                 contentType(ContentType.Application.Json)
             }
-            Resource.Success("Ok")
+            if(response.status.value == 200) Resource.Success("Ok")
+            else Resource.Error(response.bodyAsText())
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }
@@ -100,7 +108,9 @@ class NoteRemoteDataSourceImpl(
                 contentType(ContentType.Application.Json)
             }
             val notes = Json.decodeFromString<NotesDto>(response.bodyAsText())
-            Resource.Success(notes.notes)
+
+            if(response.status.value == 200) Resource.Success(notes.notes)
+            else Resource.Error(response.bodyAsText())
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }

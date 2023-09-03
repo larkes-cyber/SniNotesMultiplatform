@@ -16,17 +16,17 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.decodeFromString
-
-
 class UserRemoteDataSourceImpl(): UserRemoteDataSource {
 
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
-            json()
+            json(Json {
+                prettyPrint = true
+                isLenient = true
+            })
         }
     }
 
@@ -34,15 +34,23 @@ class UserRemoteDataSourceImpl(): UserRemoteDataSource {
         return try {
             val response:HttpResponse = client.post(UserRemoteDataSource.Endpoints.Register.url){
                 contentType(ContentType.Application.Json)
-                body = user.toUserDto()
+                setBody(user.toUserDto())
             }
             val session = response.bodyAsText()
-            Resource.Success(User(
-                name = user.name,
-                password = user.password,
-                session = session,
-                login = user.login
-            ))
+
+            if(response.status.value == 200) {
+                Resource.Success(
+                    User(
+                        name = user.name,
+                        password = user.password,
+                        session = session,
+                        login = user.login
+                    )
+                )
+            }
+            else  Resource.Error(session)
+
+
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }
@@ -53,10 +61,13 @@ class UserRemoteDataSourceImpl(): UserRemoteDataSource {
         return try {
             val response:HttpResponse = client.post(UserRemoteDataSource.Endpoints.Authorization.url){
                 contentType(ContentType.Application.Json)
-                body = login.toLoginDto()
+                setBody(login.toLoginDto())
             }
             val session = response.bodyAsText()
-            Resource.Success(session)
+
+            if(response.status.value == 200) Resource.Success(session)
+            else  Resource.Error(session)
+
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }
@@ -70,8 +81,10 @@ class UserRemoteDataSourceImpl(): UserRemoteDataSource {
                     parameters.append("email", email)
                 }
             }
-            val userDto = Json.decodeFromString<UserDataDto>(response.bodyAsText())
-            Resource.Success(userDto.toUser())
+            if(response.status.value == 200) {
+                val userDto = Json.decodeFromString<UserDataDto>(response.bodyAsText())
+                Resource.Success(userDto.toUser())
+            }else Resource.Error(response.bodyAsText())
         }catch (e:Exception){
             Resource.Error(e.message.toString())
         }

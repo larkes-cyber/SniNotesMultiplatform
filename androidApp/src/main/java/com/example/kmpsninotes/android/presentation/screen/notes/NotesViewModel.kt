@@ -43,7 +43,10 @@ class NotesViewModel @Inject constructor(
     }
 
     private fun observeUserData(){
-
+        viewModelScope.launch {
+            val user = userRepository.getUserData()
+            _userUiState.value = userUiState.value.copy(user = user)
+        }
     }
 
     fun switchSelectingMode(bool:Boolean){
@@ -64,7 +67,7 @@ class NotesViewModel @Inject constructor(
     fun deleteNotes(){
         viewModelScope.launch {
             notesUiState.value.selectedNotes.forEach { note ->
-                noteRepository.deleteNote(note)
+                noteRepository.deleteNote(note, internetConnectionService.isOnline())
             }
             _notesUiState.value = NotesUiState()
             observeNotes()

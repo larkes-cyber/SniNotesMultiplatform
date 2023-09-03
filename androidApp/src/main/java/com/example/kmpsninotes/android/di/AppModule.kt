@@ -18,6 +18,7 @@ import com.squareup.sqldelight.db.SqlDriver
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -31,6 +32,11 @@ object AppModule {
         return DatabaseDriverFactory(app).createDriver()
     }
 
+    @Provides
+    fun provideContext(@ApplicationContext context: Context):Context {
+        return context
+    }
+
 
 
     @Provides
@@ -39,6 +45,8 @@ object AppModule {
         return NoteDatabaseDataSourceImpl(NoteDatabase(sqlDriver))
     }
 
+    @Provides
+    fun provideInternetConnectionService(context: Context):InternetConnectionService = InternetConnectionService(context)
 
 
     @Provides
@@ -85,9 +93,7 @@ object AppModule {
         )
     }
 
-    @Singleton
-    @Provides
-    fun provideInternetConnectionService(context: Context) = InternetConnectionService(context)
+
 
 
 }

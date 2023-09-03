@@ -24,21 +24,20 @@ kotlin {
             languageSettings.optIn("io.ktor.util.InternalAPI")
         }
 
-        val ktorVersion = "2.3.3"
+        val ktorVersion = "2.1.0"
         val koin_version= "3.1.2"
         val commonMain by getting{
             dependencies {
                 implementation("com.squareup.sqldelight:runtime:1.5.5")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
-                implementation ("io.ktor:ktor-client-serialization:$ktorVersion")
+                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation ("io.ktor:ktor-client-logging:$ktorVersion")
+                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("com.russhwolf:multiplatform-settings:1.0.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
-                implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-
+                implementation("io.ktor:ktor-client-core:$ktorVersion")
+                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
             }
         }
         val commonTest by getting {

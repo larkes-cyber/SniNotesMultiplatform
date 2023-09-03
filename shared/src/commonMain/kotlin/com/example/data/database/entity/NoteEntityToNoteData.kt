@@ -9,7 +9,7 @@ fun NoteEntity.toNoteData(): NoteData {
         timestamp = timestamp,
         text = text,
         title = title,
-        online_sync = true,
-        visible = true
+        online_sync = onlinesync!!,
+        visible = visible!!
     )
 }
