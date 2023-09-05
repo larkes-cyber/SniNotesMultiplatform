@@ -24,7 +24,7 @@ kotlin {
             languageSettings.optIn("io.ktor.util.InternalAPI")
         }
 
-        val ktorVersion = "2.1.0"
+        val ktorVersion = "2.1.3"
         val koin_version= "3.1.2"
         val commonMain by getting{
             dependencies {
@@ -32,12 +32,8 @@ kotlin {
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-cio:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
-                implementation ("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-                implementation("com.russhwolf:multiplatform-settings:1.0.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-                implementation("io.ktor:ktor-client-core:$ktorVersion")
-                implementation("io.ktor:ktor-client-serialization:$ktorVersion")
             }
         }
         val commonTest by getting {
@@ -54,16 +50,21 @@ kotlin {
         val androidTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
+        val iosSimulatorArm64Main by getting {
             dependencies {
                 implementation("com.squareup.sqldelight:native-driver:1.5.5")
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
             }
+        }
+        val iosMain by creating {
             dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
+            dependencies {
+                implementation("com.squareup.sqldelight:native-driver:1.5.5")
+                implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+            }
         }
         val iosX64Test by getting
         val iosArm64Test by getting

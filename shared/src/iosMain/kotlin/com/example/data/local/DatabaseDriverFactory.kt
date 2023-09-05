@@ -1,5 +1,6 @@
 package com.example.data.local
 
+import com.example.kmpsninotes.database.NoteDatabase
 import com.squareup.sqldelight.db.SqlDriver
 import com.squareup.sqldelight.drivers.native.NativeSqliteDriver
 
