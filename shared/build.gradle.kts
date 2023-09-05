@@ -25,7 +25,7 @@ kotlin {
         }
 
         val ktorVersion = "2.1.3"
-        val koin_version= "3.1.2"
+        val koin_version= "1.6.7"
         val commonMain by getting{
             dependencies {
                 implementation("com.squareup.sqldelight:runtime:1.5.5")
@@ -64,6 +64,7 @@ kotlin {
             dependencies {
                 implementation("com.squareup.sqldelight:native-driver:1.5.5")
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
+                implementation ("io.ktor:ktor-client-ios:$ktorVersion")
             }
         }
         val iosX64Test by getting

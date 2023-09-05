@@ -7,13 +7,24 @@
 //
 
 import Foundation
+import shared
 
-extension LoginScreen{
+
     
-    @MainActor class LoginScreenViewModel:ObservableObject{
-        @Published var login = ""
-        @Published var name = ""
-        @Published var password = ""
+@MainActor class LoginScreenViewModel:ObservableObject{
+    @Published var login = ""
+    @Published var name = ""
+    @Published var password = ""
+    
+    private var userRepository:UserRepository? = nil
+    
+    init(userRepository: UserRepository? = nil) {
+        self.userRepository = userRepository
+    }
+    
+    func registerUser(){
+    
     }
     
 }
+    

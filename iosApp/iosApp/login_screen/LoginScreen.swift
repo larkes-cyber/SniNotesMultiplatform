@@ -7,12 +7,15 @@
 //
 
 import SwiftUI
-
+import shared
 
 struct LoginScreen:View{
     
-    @StateObject var viewModel = LoginScreenViewModel()
+    
+    @StateObject var viewModel:LoginScreenViewModel
     @State private(set) var isSignUp = false
+
+    
     
     var body: some View {
         VStack{
@@ -63,11 +66,11 @@ struct LoginScreen:View{
     }
 }
 
-struct LoginScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LoginScreen()
-    }
-}
+//struct LoginScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        LoginScreen()
+//    }
+//}
 
 
 

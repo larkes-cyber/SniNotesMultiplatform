@@ -14,18 +14,12 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
+import kotlin.native.concurrent.SharedImmutable
 
 class NoteRemoteDataSourceImpl(
+    private val client: HttpClient
 ):NoteRemoteDataSource {
 
-    private val client = HttpClient(CIO){
-        install(ContentNegotiation){
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-    }
 
     override suspend fun pushNote(note: NoteDto, user: User): Resource<String> {
 

@@ -19,16 +19,10 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
-class UserRemoteDataSourceImpl(): UserRemoteDataSource {
+class UserRemoteDataSourceImpl(
+    private val client: HttpClient
+): UserRemoteDataSource {
 
-    private val client = HttpClient(CIO) {
-        install(ContentNegotiation) {
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-    }
 
     override suspend fun registerUser(user: User): Resource<User> {
         return try {

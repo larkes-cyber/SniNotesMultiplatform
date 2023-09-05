@@ -10,6 +10,7 @@ import com.example.data.remote.source.NoteRemoteDataSourceImpl
 import com.example.data.remote.source.UserRemoteDataSource
 import com.example.data.remote.source.UserRemoteDataSourceImpl
 import com.example.data.repository.DataUserRepository
+import com.example.di.SharedClass
 import com.example.domain.repository.NoteRepository
 import com.example.domain.repository.UserRepository
 import com.example.kmpsninotes.android.until.InternetConnectionService
@@ -25,6 +26,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideSharedClass() = SharedClass()
 
     @Provides
     @Singleton
@@ -51,14 +56,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRemoteDataSource():NoteRemoteDataSource{
-        return NoteRemoteDataSourceImpl()
+    fun provideNoteRemoteDataSource(
+        sharedClass: SharedClass
+    ):NoteRemoteDataSource{
+        return sharedClass.noteRemoteDataSource
     }
 
     @Provides
     @Singleton
-    fun provideUserRemoteDataSource():UserRemoteDataSource{
-        return UserRemoteDataSourceImpl()
+    fun provideUserRemoteDataSource(
+        sharedClass: SharedClass
+    ):UserRemoteDataSource{
+        return sharedClass.userRemoteDataSource
     }
 
     @Provides
