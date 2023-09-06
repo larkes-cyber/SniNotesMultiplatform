@@ -12,12 +12,14 @@ import shared
 struct LoginScreen:View{
     
     
-    @StateObject var viewModel:LoginScreenViewModel
-    @State private(set) var isSignUp = false
-
+    @ObservedObject var viewModel:LoginScreenViewModel
+    
     
     
     var body: some View {
+        
+        let isSignUp = viewModel.isSignUp
+        
         VStack{
             Text(isSignUp ? "Sign up now" : "Sign in now" )
                 .font(.system(size: 32, weight: .medium))
@@ -46,6 +48,7 @@ struct LoginScreen:View{
             LargeButton(
                 title:isSignUp ? "Sign up" : "Sign in",
                 backgroundColor: Color.blue) {
+                    viewModel.registerUser()
                 }
                 .padding(.bottom, 10)
                 .padding(.horizontal, 10)
@@ -54,7 +57,7 @@ struct LoginScreen:View{
                 Text(isSignUp ? "Already have an account" : "Don't have an account")
                     .font(.system(size: 12, weight: .medium))
                 Button(isSignUp ? "Sign in" : "Sign up"){
-                    isSignUp = !isSignUp
+                    viewModel.switchLoginMode()
                 }
                 .font(.system(size: 12, weight: .medium))
                 
@@ -66,11 +69,6 @@ struct LoginScreen:View{
     }
 }
 
-//struct LoginScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        LoginScreen()
-//    }
-//}
 
 
 

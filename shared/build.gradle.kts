@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     id("com.squareup.sqldelight")
     id ("org.jetbrains.kotlin.plugin.serialization")
+    id ("kotlinx-serialization")
 }
 
 kotlin {
@@ -24,7 +25,7 @@ kotlin {
             languageSettings.optIn("io.ktor.util.InternalAPI")
         }
 
-        val ktorVersion = "2.1.3"
+        val ktorVersion = "2.0.0"
         val koin_version= "1.6.7"
         val commonMain by getting{
             dependencies {

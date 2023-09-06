@@ -1,4 +1,5 @@
 package com.example.data.remote.source
+import com.example.data.remote.http_client.httpClient
 import com.example.data.remote.model.NoteDto
 import com.example.data.remote.model.NotesDto
 import com.example.domain.model.User
@@ -17,9 +18,17 @@ import kotlinx.serialization.Serializable
 import kotlin.native.concurrent.SharedImmutable
 
 class NoteRemoteDataSourceImpl(
-    private val client: HttpClient
 ):NoteRemoteDataSource {
 
+
+    private val client = httpClient(){
+        install(ContentNegotiation){
+            json(Json{
+                prettyPrint = true
+                isLenient = true
+            })
+        }
+    }
 
     override suspend fun pushNote(note: NoteDto, user: User): Resource<String> {
 

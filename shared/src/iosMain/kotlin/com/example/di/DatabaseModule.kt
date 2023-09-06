@@ -16,34 +16,33 @@ import com.example.domain.repository.UserRepository
 import com.example.kmpsninotes.database.NoteDatabase
 import io.ktor.client.*
 import io.ktor.client.engine.darwin.*
+import io.ktor.client.plugins.contentnegotiation.*
+import kotlinx.serialization.serializer
+import platform.Foundation.setValue
 import kotlin.native.concurrent.SharedImmutable
 import kotlin.native.concurrent.freeze
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 
 class DatabaseModule {
 
 
     private val factory by lazy { DatabaseDriverFactory() }
-    private val client = HttpClient(Darwin) {
-        engine {
-            configureRequest {
-                setAllowsCellularAccess(true)
-            }
-        }
-    }
 
     private val noteDatabaseDataSource: NoteDatabaseDataSource by lazy {
         NoteDatabaseDataSourceImpl(NoteDatabase(factory.createDriver()))
     }
 
     private val noteRemoteDataSource:NoteRemoteDataSource by lazy {
-        NoteRemoteDataSourceImpl(client)
+        NoteRemoteDataSourceImpl()
     }
 
     private val userDatabaseDataSource:UserDatabaseDataSource by lazy {
         UserDatabaseDataSourceImpl(NoteDatabase(factory.createDriver()))
     }
     private val userRemoteDataSource:UserRemoteDataSource by lazy {
-        UserRemoteDataSourceImpl(client)
+        UserRemoteDataSourceImpl()
     }
 
     val userRepository:UserRepository by lazy {

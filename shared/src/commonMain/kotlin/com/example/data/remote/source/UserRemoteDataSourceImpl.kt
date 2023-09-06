@@ -1,5 +1,6 @@
 package com.example.data.remote.source
 
+import com.example.data.remote.http_client.httpClient
 import com.example.data.remote.model.UserDataDto
 import com.example.data.remote.model.UserDto
 import com.example.domain.mapper.toLoginDto
@@ -20,10 +21,17 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
 class UserRemoteDataSourceImpl(
-    private val client: HttpClient
 ): UserRemoteDataSource {
 
 
+    private val client = httpClient(){
+        install(ContentNegotiation){
+            json(Json{
+                prettyPrint = true
+                isLenient = true
+            })
+        }
+    }
     override suspend fun registerUser(user: User): Resource<User> {
         return try {
             val response:HttpResponse = client.post(UserRemoteDataSource.Endpoints.Register.url){

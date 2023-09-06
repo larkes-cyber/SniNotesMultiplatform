@@ -11,20 +11,13 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
 class SharedClass {
-    val client = HttpClient(CIO){
-        install(ContentNegotiation){
-            json(Json {
-                prettyPrint = true
-                isLenient = true
-            })
-        }
-    }
+
     val noteRemoteDataSource: NoteRemoteDataSource by lazy {
-        NoteRemoteDataSourceImpl(client)
+        NoteRemoteDataSourceImpl()
     }
 
     val userRemoteDataSource: UserRemoteDataSource by lazy {
-        UserRemoteDataSourceImpl(client)
+        UserRemoteDataSourceImpl()
     }
 
 }
