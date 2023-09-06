@@ -54,6 +54,7 @@ class UserRemoteDataSourceImpl(
 
 
         }catch (e:Exception){
+            println(e.message.toString())
             Resource.Error(e.message.toString())
         }
 

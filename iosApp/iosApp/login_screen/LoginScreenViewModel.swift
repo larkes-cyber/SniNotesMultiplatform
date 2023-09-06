@@ -18,25 +18,38 @@ class LoginScreenViewModel:ObservableObject{
     
     @Published var isSignUp = false
     
+    @Published var error:String? = nil
+    
     private var userRepository:UserRepository? = nil
     
     init(userRepository: UserRepository? = nil) {
         self.userRepository = userRepository
     }
     
-    func registerUser(){
+    func loginUser(){
         
-        userRepository?.registerUser(
-            user: User(
-                login: login,
-                password: password,
-                session: "",
-                name: name
-            ),
-            completionHandler: { res, err in
-                print(res?.message)
-            }
-        )
+        if isSignUp{
+            userRepository?.registerUser(
+                user: User(
+                    login: login,
+                    password: password,
+                    session: "",
+                    name: name
+                ),
+                completionHandler: { res, err in
+                    self.error = res?.message
+                }
+            )
+        }else{
+            userRepository?.authUser(
+                login: Login(login: login, password: password),
+                completionHandler: {res, err in
+                    print(res?.message)
+                    self.error = res?.message
+                }
+            )
+        }
+       
     }
     
     func switchLoginMode(){

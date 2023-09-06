@@ -1,5 +1,6 @@
 package com.example.kmpsninotes.android.presentation.screen.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -52,20 +53,20 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .background(AppTheme.colors.primaryBackground)
+        ,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = if(uiState.mode == RegistrationMode) SignUpTitle else SignInTitle,
-            style = MaterialTheme.typography.h4,
-            color = AppTheme.colors.primaryTitleColor
+            style = MaterialTheme.typography.h4.copy(color =  AppTheme.colors.primaryTitleColor)
         )
         Spacer(modifier = Modifier.height(14.dp))
         Text(
             text = if(uiState.mode == RegistrationMode) SignUpSubtitle else SignInSubtitle,
-            style = MaterialTheme.typography.h6,
-            color = AppTheme.colors.primarySubtitleColor,
+            style = MaterialTheme.typography.h6.copy(color = AppTheme.colors.primarySubtitleColor),
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(55.dp))
@@ -117,8 +118,7 @@ fun LoginScreen(
         Row {
             Text(
                 text = if(uiState.mode == RegistrationMode) "Already have an account" else "Don't have an account",
-                style = MaterialTheme.typography.body2,
-                color = AppTheme.colors.primarySubtitleColor
+                style = MaterialTheme.typography.body2.copy(color = AppTheme.colors.primarySubtitleColor)
             )
             Spacer(modifier = Modifier.width(5.dp))
             ClickableText(

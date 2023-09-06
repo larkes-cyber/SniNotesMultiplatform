@@ -48,14 +48,21 @@ struct LoginScreen:View{
             LargeButton(
                 title:isSignUp ? "Sign up" : "Sign in",
                 backgroundColor: Color.blue) {
-                    viewModel.registerUser()
+                    viewModel.loginUser()
                 }
-                .padding(.bottom, 10)
                 .padding(.horizontal, 10)
+            
+            if (viewModel.error != nil && !viewModel.error!.isEmpty){
+                Text(viewModel.error!)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.red)
+                    .padding(.bottom, 7)
+
+            }
             
             HStack{
                 Text(isSignUp ? "Already have an account" : "Don't have an account")
-                    .font(.system(size: 12, weight: .medium))
+                    .font(.system(size: 10, weight: .medium))
                 Button(isSignUp ? "Sign in" : "Sign up"){
                     viewModel.switchLoginMode()
                 }
