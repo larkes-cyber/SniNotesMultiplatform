@@ -14,7 +14,10 @@ struct iOSApp: App {
         let loginViewModel = LoginScreenViewModel(userRepository: userRepository)
         
 		WindowGroup {
-            LoginScreen(viewModel: loginViewModel)
+            NavigationView(){
+                LoginScreen(viewModel: loginViewModel)
+            }
+            
 		}
 	}
 }

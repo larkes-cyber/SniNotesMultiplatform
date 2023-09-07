@@ -14,6 +14,7 @@
 		FA2CBFB92AA6F1320005558A /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CBFB82AA6F1320005558A /* LoginScreen.swift */; };
 		FA2CBFBB2AA6F6520005558A /* LoginScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CBFBA2AA6F6520005558A /* LoginScreenViewModel.swift */; };
 		FA2CBFBE2AA70D7E0005558A /* LargeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CBFBD2AA70D7E0005558A /* LargeButton.swift */; };
+		FA2CBFFC2AAA22F90005558A /* NotesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA2CBFFB2AAA22F90005558A /* NotesScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +40,7 @@
 		FA2CBFB82AA6F1320005558A /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		FA2CBFBA2AA6F6520005558A /* LoginScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreenViewModel.swift; sourceTree = "<group>"; };
 		FA2CBFBD2AA70D7E0005558A /* LargeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeButton.swift; sourceTree = "<group>"; };
+		FA2CBFFB2AAA22F90005558A /* NotesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				FA2CBFFA2AA9E7780005558A /* notes_screen */,
 				FA2CBFBC2AA70D1F0005558A /* views */,
 				FA2CBFB72AA6F1150005558A /* login_screen */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -113,6 +116,14 @@
 				FA2CBFBD2AA70D7E0005558A /* LargeButton.swift */,
 			);
 			path = views;
+			sourceTree = "<group>";
+		};
+		FA2CBFFA2AA9E7780005558A /* notes_screen */ = {
+			isa = PBXGroup;
+			children = (
+				FA2CBFFB2AAA22F90005558A /* NotesScreen.swift */,
+			);
+			path = notes_screen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -208,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				FA2CBFFC2AAA22F90005558A /* NotesScreen.swift in Sources */,
 				FA2CBFBE2AA70D7E0005558A /* LargeButton.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				FA2CBFBB2AA6F6520005558A /* LoginScreenViewModel.swift in Sources */,

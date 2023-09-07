@@ -13,17 +13,27 @@ struct LoginScreen:View{
     
     
     @ObservedObject var viewModel:LoginScreenViewModel
-    
+
     
     
     var body: some View {
         
+       
+        
         let isSignUp = viewModel.isSignUp
         
         VStack{
+            
+            NavigationLink(destination: NotesScreen(), isActive: $viewModel.hasBeenDone){
+                               EmptyView()
+                           }.hidden()
+            
+  
+            
             Text(isSignUp ? "Sign up now" : "Sign in now" )
                 .font(.system(size: 32, weight: .medium))
                 .padding(.bottom, 14)
+    
             if isSignUp{
                 Text("Please fill the details and create account")
                     .font(.system(size: 18, weight: .medium))

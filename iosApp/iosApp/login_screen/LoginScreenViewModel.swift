@@ -17,8 +17,9 @@ class LoginScreenViewModel:ObservableObject{
     @Published var password = ""
     
     @Published var isSignUp = false
-    
     @Published var error:String? = nil
+    
+    @Published var hasBeenDone = false
     
     private var userRepository:UserRepository? = nil
     
@@ -46,6 +47,9 @@ class LoginScreenViewModel:ObservableObject{
                 completionHandler: {res, err in
                     print(res?.message)
                     self.error = res?.message
+                    if res?.message != nil{
+                        self.hasBeenDone = res!.message!.isEmpty
+                    }
                 }
             )
         }
