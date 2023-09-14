@@ -49,7 +49,7 @@ fun LoginScreen(
             navController.navigate(Screen.SplashScreen.route)
         }
     }
-
+    
     Column(
         modifier = Modifier
             .fillMaxSize()

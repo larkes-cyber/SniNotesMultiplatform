@@ -15,18 +15,23 @@ struct LoginScreen:View{
     @ObservedObject var viewModel:LoginScreenViewModel
 
     
-    
+    init(userRepository:UserRepository) {
+        self.viewModel = LoginScreenViewModel(userRepository: userRepository)
+    }
+
     var body: some View {
         
-       
+
         
         let isSignUp = viewModel.isSignUp
         
+        
         VStack{
             
-            NavigationLink(destination: NotesScreen(), isActive: $viewModel.hasBeenDone){
-                               EmptyView()
-                           }.hidden()
+            
+//            NavigationLink(destination: NotesScreen(), isActive: $viewModel.hasBeenDone){
+//                               NotesScreen()
+//                           }.hidden()
             
   
             

@@ -11,11 +11,11 @@ struct iOSApp: App {
         let userRepository = sharedModule.userRepository
         let noteRepository = sharedModule.noteRepository
         
-        let loginViewModel = LoginScreenViewModel(userRepository: userRepository)
         
 		WindowGroup {
             NavigationView(){
-                LoginScreen(viewModel: loginViewModel)
+                //LoginScreen(viewModel: loginViewModel)
+                NotesScreen(notesRepository: noteRepository)
             }
             
 		}

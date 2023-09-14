@@ -30,25 +30,40 @@ class LoginScreenViewModel:ObservableObject{
     func loginUser(){
         
         if isSignUp{
+            let user = User(
+                login: login,
+                password: password,
+                session: "",
+                name: name
+            )
             userRepository?.registerUser(
-                user: User(
-                    login: login,
-                    password: password,
-                    session: "",
-                    name: name
-                ),
+                user: user,
                 completionHandler: { res, err in
                     self.error = res?.message
+                    if res!.message!.isEmpty{
+                        self.userRepository?.putUserData(user: user, completionHandler: {_ in
+                            self.hasBeenDone = res!.message!.isEmpty
+                        })
+                    }
                 }
             )
         }else{
             userRepository?.authUser(
                 login: Login(login: login, password: password),
                 completionHandler: {res, err in
-                    print(res?.message)
                     self.error = res?.message
+                    
                     if res?.message != nil{
                         self.hasBeenDone = res!.message!.isEmpty
+                    }else{
+                        self.userRepository?.observeUserData(session: res?.data as! String, email: self.login, completionHandler: {user, err in
+                            if user?.data != nil{
+                                self.userRepository?.putUserData(user: user?.data ?? User(login: "",password: "",session: "",name: ""), completionHandler: {_ in
+                                    self.hasBeenDone = true
+                                    })
+                                }
+                            }
+                        )
                     }
                 }
             )

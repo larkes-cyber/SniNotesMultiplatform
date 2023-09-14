@@ -20,8 +20,12 @@ class UserDatabaseDataSourceImpl(
         )
     }
 
-    override suspend fun observeUser(): UserData {
-        return queries.observeUser().executeAsOne().toUserData()
+    override suspend fun observeUser(): UserData? {
+        return try {
+            queries.observeUser().executeAsOne().toUserData()
+        } catch (e:Exception){
+            null
+        }
     }
 
     override suspend fun deleteUser() {

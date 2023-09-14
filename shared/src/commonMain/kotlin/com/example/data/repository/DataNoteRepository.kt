@@ -34,7 +34,7 @@ class DataNoteRepository(
         if(online) {
             val serverResponse = noteRemoteDataSource.deleteNote(
                 note = noteEntity.toNoteDto(),
-                user = userDatabaseDataSource.observeUser().toUser()
+                user = userDatabaseDataSource.observeUser()!!.toUser()
             )
             noteDatabaseDataSource.deleteNote(noteEntity.toNoteData())
         }else{
@@ -45,12 +45,12 @@ class DataNoteRepository(
 
     override suspend fun pushNote(note: Note): Resource<String> = noteRemoteDataSource.pushNote(
         note = note.toNoteDto(),
-        user = userDatabaseDataSource.observeUser().toUser()
+        user = userDatabaseDataSource.observeUser()!!.toUser()
     )
 
     override suspend fun updateNote(note: Note): Resource<String> = noteRemoteDataSource.updateNote(
         note = note.toNoteDto(),
-        user = userDatabaseDataSource.observeUser().toUser()
+        user = userDatabaseDataSource.observeUser()!!.toUser()
     )
 
     override suspend fun noteSyncWithServer(note: Note, online: Boolean):Resource<String> {
