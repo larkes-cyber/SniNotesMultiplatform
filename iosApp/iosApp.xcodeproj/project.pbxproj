@@ -21,6 +21,7 @@
 		FACA2C2F2AB2042A00E2F177 /* SplashScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C2E2AB2042A00E2F177 /* SplashScreen.swift */; };
 		FACA2C312AB2049800E2F177 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C302AB2049800E2F177 /* SplashScreenViewModel.swift */; };
 		FACA2C6A2AB37B5900E2F177 /* NoteDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */; };
+		FACA2C6C2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +54,7 @@
 		FACA2C2E2AB2042A00E2F177 /* SplashScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreen.swift; sourceTree = "<group>"; };
 		FACA2C302AB2049800E2F177 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreen.swift; sourceTree = "<group>"; };
+		FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreenViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */,
+				FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */,
 			);
 			path = note_detail_screen;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				FA2CBFFC2AAA22F90005558A /* NotesScreen.swift in Sources */,
 				FACA2C282AB1B29400E2F177 /* NoteView.swift in Sources */,
 				FA2CBFBE2AA70D7E0005558A /* LargeButton.swift in Sources */,
+				FACA2C6C2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,
 				FA2CBFBB2AA6F6520005558A /* LoginScreenViewModel.swift in Sources */,
 				FA2CBFB92AA6F1320005558A /* LoginScreen.swift in Sources */,

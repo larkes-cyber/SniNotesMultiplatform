@@ -11,11 +11,11 @@ import shared
 
 struct NotesScreen: View {
     
-    
-    @ObservedObject var viewModel:NotesScreeViewModel
+    @ObservedObject var viewModel:NotesScreeViewModel = NotesScreeViewModel()
+    private var noteRepository:NoteRepository
     
     init(notesRepository:NoteRepository) {
-        self.viewModel = NotesScreeViewModel(noteReppository: notesRepository)
+        self.noteRepository = notesRepository
     }
     
     var body: some View {
@@ -32,21 +32,25 @@ struct NotesScreen: View {
                             Image(systemName:"trash")
                         }
                     }else{
-                        NavigationLink(destination: NoteDetailScreen()){
+                        NavigationLink(destination: NoteDetailScreen(noteRepository: noteRepository)){
                             Image(systemName: "plus")
                         }
-                                    
                     }
                 }
-            }.padding(.horizontal, 20)
-                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
             List{
                 ForEach(viewModel.notesList, id:\.self.id){note in
+                    let _ = print(12334)
                     NoteView(noteTitle: note.title, noteText: note.text, color: note.color, selected: false)
                 }
             }.onAppear{
+                let _ = print(12334)
+                viewModel.setupModel(noteReppository: noteRepository)
                 viewModel.loadNotes()
             }
+            .listStyle(.plain)
         }
     }
     

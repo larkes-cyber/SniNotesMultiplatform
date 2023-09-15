@@ -19,7 +19,7 @@ struct SplashScreen:View{
         viewModel.checkUserCached()
     }
     
-    
+
     var body: some View{
         
         NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.authorizated){

@@ -20,7 +20,7 @@ struct NoteView:View{
     init(noteTitle: String, noteText: String, color: Int64 = Note.Companion().generateRandom(), selected: Bool) {
         self.noteTitle = noteTitle
         self.noteText = noteText
-        self.color = color
+        self.color = Note.Companion().generateRandom()
         self.selected = selected
     }
     
@@ -51,8 +51,8 @@ struct NoteView:View{
         
             }
         }.padding(.trailing, 24).background(Color(hex: color))
-            .padding(.leading,12)
-            .padding(.trailing, 16)
+//            .padding(.leading,12)
+//            .padding(.trailing, 16)
     }
     
 }

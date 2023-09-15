@@ -17,13 +17,15 @@ class NotesScreeViewModel:ObservableObject{
     
     private var noteReppository:NoteRepository? = nil
     
-    init(noteReppository: NoteRepository? = nil) {
+    func setupModel(noteReppository:NoteRepository){
         self.noteReppository = noteReppository
     }
-    
+
     func loadNotes(){
+        print(2345678)
         self.noteReppository?.observeNotes(completionHandler: {notes, error in
-            self.selectedNotes = notes!
+            print(notes)
+            self.notesList = notes!
         })
     }
     
