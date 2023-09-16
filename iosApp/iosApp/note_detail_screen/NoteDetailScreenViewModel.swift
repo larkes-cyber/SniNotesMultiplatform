@@ -14,9 +14,17 @@ class NoteDetailScreenViewModel:ObservableObject{
     private var noteRepository:NoteRepository
     
     private var noteId:String = ""
-    var color:Int64? = nil
-    @Published var title:String = ""
-    @Published var text:String = ""
+    var color:Int64 =  Note.Companion().generateRandom()
+    @Published var title:String = "" {
+        didSet{
+            saveNote()
+        }
+    }
+    @Published var text:String = ""{
+        didSet{
+            saveNote()
+        }
+    }
     @Published var hasBeenDone:Bool = false
     
     init(noteRepository: NoteRepository) {
@@ -24,20 +32,21 @@ class NoteDetailScreenViewModel:ObservableObject{
     }
     
     func saveNote(){
-        noteRepository.insertNote(noteEntity: Note(id: self.noteId, title: self.title, text: self.text, color: self.color ?? 0, online_sync: false, visible: true, timestamp: 0), completionHandler: {_ in
+        noteRepository.insertNote(noteEntity: Note(id: self.noteId, title: self.title, text: self.text, color: self.color, online_sync: false, visible: true, timestamp: 0), completionHandler: {_ in
             self.hasBeenDone = true
         })
     }
     
     func loadNoteIfExists(id:String?){
-        if !noteId.isEmpty{
+        if id == nil{
+            self.noteId = UUID().uuidString
+        }else{
+            self.noteId = id!
             noteRepository.observeNoteById(id: id!, completionHandler: { note, err in
                 self.title = note?.title ?? ""
                 self.text = note?.text ?? ""
-                self.color = note?.color ?? 0
+                self.color = note?.color ?? Note.Companion().generateRandom()
             })
-        }else{
-            self.noteId = id!
         }
     }
     

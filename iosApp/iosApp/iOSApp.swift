@@ -14,7 +14,7 @@ struct iOSApp: App {
         
 		WindowGroup {
             NavigationView(){
-                //LoginScreen(viewModel: loginViewModel)
+                //LoginScreen(userRepository: userRepository)
                 NotesScreen(notesRepository: noteRepository)
             }
             

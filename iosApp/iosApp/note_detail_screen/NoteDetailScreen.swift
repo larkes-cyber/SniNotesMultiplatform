@@ -13,12 +13,12 @@ import shared
 struct NoteDetailScreen:View{
     
     @ObservedObject var viewModel:NoteDetailScreenViewModel
-    var noteId:String
+    var noteId:String?
     
     @Environment(\.presentationMode) var presentation
 
     
-    init(noteid:String = UUID().uuidString, noteRepository:NoteRepository){
+    init(noteid:String?, noteRepository:NoteRepository){
         self.viewModel = NoteDetailScreenViewModel(noteRepository: noteRepository)
         self.noteId = noteid
     }
@@ -40,13 +40,8 @@ struct NoteDetailScreen:View{
             Spacer()
         }.onAppear{
             viewModel.loadNoteIfExists(id: noteId)
-        }.toolbar {
-            Button( action: {
-                self.viewModel.saveNote()
-            }){
-                Image(systemName: "checkmark")
-            }
         }
         .padding()
+        .background(Color(hex: viewModel.color))
     }
 }

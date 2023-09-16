@@ -10,6 +10,6 @@ object Constants {
     const val SignInSubtitle = "Please sign in to continue our app"
     const val AppName = "SniNotes"
     const val ONLINE = "online"
-    const val SNI_NOTES_URL = "http://192.168.0.101:8080"
+    const val SNI_NOTES_URL = "http://192.168.1.104:8080"
     const val SPLASH_SCREEN_TEXT = "Please wait while loading your data..."
 }

@@ -22,6 +22,7 @@
 		FACA2C312AB2049800E2F177 /* SplashScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C302AB2049800E2F177 /* SplashScreenViewModel.swift */; };
 		FACA2C6A2AB37B5900E2F177 /* NoteDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */; };
 		FACA2C6C2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */; };
+		FACA2C6E2AB57C9900E2F177 /* TopAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C6D2AB57C9900E2F177 /* TopAppBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +56,7 @@
 		FACA2C302AB2049800E2F177 /* SplashScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewModel.swift; sourceTree = "<group>"; };
 		FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreen.swift; sourceTree = "<group>"; };
 		FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreenViewModel.swift; sourceTree = "<group>"; };
+		FACA2C6D2AB57C9900E2F177 /* TopAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAppBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				FA2CBFBD2AA70D7E0005558A /* LargeButton.swift */,
+				FACA2C6D2AB57C9900E2F177 /* TopAppBar.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FACA2C2F2AB2042A00E2F177 /* SplashScreen.swift in Sources */,
+				FACA2C6E2AB57C9900E2F177 /* TopAppBar.swift in Sources */,
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				FACA2C2B2AB1B3B100E2F177 /* Colors.swift in Sources */,
 				FA2CBFFC2AAA22F90005558A /* NotesScreen.swift in Sources */,

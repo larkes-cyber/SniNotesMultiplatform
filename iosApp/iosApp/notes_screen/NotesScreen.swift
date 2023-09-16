@@ -20,30 +20,28 @@ struct NotesScreen: View {
     
     var body: some View {
         VStack(alignment:.trailing, spacing: 0){
-            ZStack{
-                Text("SniNotes")
-                    .font(.system(size: 22, weight: .medium))
-                    .frame(alignment: .leading)
-                Spacer()
-                HStack{
-                    Spacer()
-                    if viewModel.selectingMode{
-                        Button(action: {}){
-                            Image(systemName:"trash")
-                        }
-                    }else{
-                        NavigationLink(destination: NoteDetailScreen(noteRepository: noteRepository)){
-                            Image(systemName: "plus")
-                        }
-                    }
-                }
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
+            
+            NavigationLink(destination: NoteDetailScreen(noteid: viewModel.selectedNoteId, noteRepository: noteRepository), isActive: $viewModel.isNoteSelected){
+                EmptyView()
+            }.hidden()
+            
+            TopAppBar<NoteDetailScreen>(destinationProvider: {
+                NoteDetailScreen(noteid: nil, noteRepository: noteRepository)
+            })
             List{
-                ForEach(viewModel.notesList, id:\.self.id){note in
-                    let _ = print(12334)
-                    NoteView(noteTitle: note.title, noteText: note.text, color: note.color, selected: false)
+                
+                let notes = viewModel.notesList.filter{note in
+                    return note.visible
+                }
+                
+                ForEach(notes, id:\.self.id){note in
+                    Button(action: {
+                        viewModel.selectNote(id: note.id)
+                    }){
+                        NoteView(note: note, onDeleteClick: {
+                            viewModel.deleteNote(note: note)
+                        })
+                    }
                 }
             }.onAppear{
                 let _ = print(12334)

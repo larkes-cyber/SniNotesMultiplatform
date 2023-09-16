@@ -12,53 +12,34 @@ import shared
 
 struct NoteView:View{
     
-    private var noteTitle = ""
-    private var noteText = ""
-    private var color:Int64 = 0
-    private var selected:Bool = false
-    
-    init(noteTitle: String, noteText: String, color: Int64 = Note.Companion().generateRandom(), selected: Bool) {
-        self.noteTitle = noteTitle
-        self.noteText = noteText
-        self.color = Note.Companion().generateRandom()
-        self.selected = selected
-    }
-    
-    func toggle(){}
+    var note:Note
+    var onDeleteClick:() -> Void
     
     
     var body:some View{
         VStack{
             HStack{
-                VStack{
-                    Text(noteTitle).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
-                        .font(.system(size: 16, weight: .regular))
-                    Text(noteText)
-                        .font(.system(size: 14, weight: .regular))
-                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
+                Text(note.title).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
+                    .font(.title3)
+                Spacer()
+                Button(action: {
+                    onDeleteClick()
+                }){
+                    Image(systemName:"xmark").foregroundColor(.black)
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 24)
-                .padding(.vertical, 8)
-                
-                if self.selected{
-                    Button(action: toggle){
-                        HStack{
-                            Image(systemName: "checkmark.square")
-                        }
-                    }
-                }
-        
+             
             }
-        }.padding(.trailing, 24).background(Color(hex: color))
-//            .padding(.leading,12)
-//            .padding(.trailing, 16)
+            .padding(.horizontal, 20)
+            .padding(.top, 15)
+            .padding(.bottom, 2)
+            Text(note.text)
+                .font(.system(size: 14, weight: .regular))
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
+                .padding(.horizontal, 20)
+                .padding(.bottom, 15)
+        }.background(Color(hex: note.color))
     }
     
 }
 
-struct NoteView_Previews: PreviewProvider {
-    static var previews: some View {
-        NoteView(noteTitle: "title", noteText: "this is a title", selected:true)
-    }
-}
+

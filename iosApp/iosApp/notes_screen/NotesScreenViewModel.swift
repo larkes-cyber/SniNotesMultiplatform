@@ -14,6 +14,8 @@ class NotesScreeViewModel:ObservableObject{
     @Published var selectingMode = false
     @Published var notesList:[Note] = []
     @Published var selectedNotes:[Note] = []
+    @Published var selectedNoteId:String? = nil
+    @Published var isNoteSelected:Bool = false
     
     private var noteReppository:NoteRepository? = nil
     
@@ -22,24 +24,26 @@ class NotesScreeViewModel:ObservableObject{
     }
 
     func loadNotes(){
-        print(2345678)
         self.noteReppository?.observeNotes(completionHandler: {notes, error in
-            print(notes)
             self.notesList = notes!
         })
     }
     
-    func deleteNotes(){
-        selectedNotes.forEach { note in
-            let index = notesList.firstIndex(of: note)
-            notesList.remove(at: index!)
-        }
+    func deleteNote(note:Note){
+        noteReppository?.deleteNote(noteEntity: note, online: false, completionHandler: {err in
+            print(err)
+            self.loadNotes()
+        })
     }
     
     func switchMode(){
         selectingMode = !selectingMode
     }
     
+    func selectNote(id:String){
+        self.selectedNoteId = id
+        self.isNoteSelected = true
+    }
     
     
     
