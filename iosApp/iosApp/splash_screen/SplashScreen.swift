@@ -13,7 +13,7 @@ struct SplashScreen:View{
     private var noteRepository:NoteRepository
     
     init(userRepository: UserRepository, noteRepository:NoteRepository) {
-        self.viewModel = SplashScreenViewModel(userRepository: userRepository)
+        self.viewModel = SplashScreenViewModel(userRepository: userRepository, noteRepository: noteRepository)
         self.userRepostory = userRepository
         self.noteRepository = noteRepository
         viewModel.checkUserCached()
@@ -23,12 +23,14 @@ struct SplashScreen:View{
     var body: some View{
         
         NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.authorizated){
-            NotesScreen(notesRepository: noteRepository)
-                       }.hidden()
+            EmptyView()
+            }.hidden()
+            .navigationBarHidden(true)
         
-        NavigationLink(destination: LoginScreen(userRepository: userRepostory), isActive: $viewModel.authorizated){
-            LoginScreen(userRepository: userRepostory)
-                       }.hidden()
+        NavigationLink(destination: LoginScreen(userRepository: userRepostory, noteRepsistory: noteRepository), isActive: $viewModel.notAuthorizated){
+           EmptyView()
+            }.hidden()
+            .navigationBarHidden(true)
         
         VStack{
             

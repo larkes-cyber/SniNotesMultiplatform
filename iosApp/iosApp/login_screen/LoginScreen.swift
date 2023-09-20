@@ -13,10 +13,12 @@ struct LoginScreen:View{
     
     
     @ObservedObject var viewModel:LoginScreenViewModel
+    private var noteRepository:NoteRepository
 
     
-    init(userRepository:UserRepository) {
+    init(userRepository:UserRepository, noteRepsistory:NoteRepository) {
         self.viewModel = LoginScreenViewModel(userRepository: userRepository)
+        self.noteRepository = noteRepsistory
     }
 
     var body: some View {
@@ -28,12 +30,12 @@ struct LoginScreen:View{
         
         VStack{
             
-            
-//            NavigationLink(destination: NotesScreen(), isActive: $viewModel.hasBeenDone){
-//                               NotesScreen()
-//                           }.hidden()
-            
-  
+            NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.hasBeenDone){
+                               EmptyView()
+                           }.hidden()
+                        .navigationBarHidden(true)
+
+    
             
             Text(isSignUp ? "Sign up now" : "Sign in now" )
                 .font(.system(size: 32, weight: .medium))

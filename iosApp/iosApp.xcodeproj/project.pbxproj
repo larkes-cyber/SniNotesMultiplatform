@@ -23,6 +23,7 @@
 		FACA2C6A2AB37B5900E2F177 /* NoteDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */; };
 		FACA2C6C2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */; };
 		FACA2C6E2AB57C9900E2F177 /* TopAppBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C6D2AB57C9900E2F177 /* TopAppBar.swift */; };
+		FACA2C722AB8B6DC00E2F177 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACA2C712AB8B6DC00E2F177 /* NetworkReachability.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 		FACA2C692AB37B5900E2F177 /* NoteDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreen.swift; sourceTree = "<group>"; };
 		FACA2C6B2AB459FC00E2F177 /* NoteDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		FACA2C6D2AB57C9900E2F177 /* TopAppBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAppBar.swift; sourceTree = "<group>"; };
+		FACA2C712AB8B6DC00E2F177 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				FACA2C2A2AB1B3B100E2F177 /* Colors.swift */,
+				FACA2C712AB8B6DC00E2F177 /* NetworkReachability.swift */,
 			);
 			path = until;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				FACA2C262AB1A4D700E2F177 /* NotesScreenViewModel.swift in Sources */,
 				FACA2C6A2AB37B5900E2F177 /* NoteDetailScreen.swift in Sources */,
 				FACA2C312AB2049800E2F177 /* SplashScreenViewModel.swift in Sources */,
+				FACA2C722AB8B6DC00E2F177 /* NetworkReachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

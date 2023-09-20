@@ -11,7 +11,7 @@ import shared
 
 struct NotesScreen: View {
     
-    @ObservedObject var viewModel:NotesScreeViewModel = NotesScreeViewModel()
+    @StateObject var viewModel:NotesScreeViewModel = NotesScreeViewModel()
     private var noteRepository:NoteRepository
     
     init(notesRepository:NoteRepository) {
@@ -24,6 +24,7 @@ struct NotesScreen: View {
             NavigationLink(destination: NoteDetailScreen(noteid: viewModel.selectedNoteId, noteRepository: noteRepository), isActive: $viewModel.isNoteSelected){
                 EmptyView()
             }.hidden()
+            .navigationBarHidden(true)
             
             TopAppBar<NoteDetailScreen>(destinationProvider: {
                 NoteDetailScreen(noteid: nil, noteRepository: noteRepository)
@@ -44,9 +45,10 @@ struct NotesScreen: View {
                     }
                 }
             }.onAppear{
-                let _ = print(12334)
+                let _ = print("sdfgfddfeddddd")
                 viewModel.setupModel(noteReppository: noteRepository)
                 viewModel.loadNotes()
+                viewModel.checkOnline()
             }
             .listStyle(.plain)
         }

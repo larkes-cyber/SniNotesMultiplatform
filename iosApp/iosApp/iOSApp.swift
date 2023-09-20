@@ -14,8 +14,7 @@ struct iOSApp: App {
         
 		WindowGroup {
             NavigationView(){
-                //LoginScreen(userRepository: userRepository)
-                NotesScreen(notesRepository: noteRepository)
+                SplashScreen(userRepository: userRepository, noteRepository: noteRepository)
             }
             
 		}

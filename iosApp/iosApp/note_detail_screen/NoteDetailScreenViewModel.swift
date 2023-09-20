@@ -12,27 +12,23 @@ import shared
 class NoteDetailScreenViewModel:ObservableObject{
     
     private var noteRepository:NoteRepository
-    
+        
     private var noteId:String = ""
     var color:Int64 =  Note.Companion().generateRandom()
-    @Published var title:String = "" {
-        didSet{
-            saveNote()
-        }
-    }
-    @Published var text:String = ""{
-        didSet{
-            saveNote()
-        }
-    }
+    @Published var title:String = "" 
+    @Published var text:String = ""
     @Published var hasBeenDone:Bool = false
+    private let networkService = NetworkReachability()
     
     init(noteRepository: NoteRepository) {
         self.noteRepository = noteRepository
     }
     
     func saveNote(){
-        noteRepository.insertNote(noteEntity: Note(id: self.noteId, title: self.title, text: self.text, color: self.color, online_sync: false, visible: true, timestamp: 0), completionHandler: {_ in
+        let note = Note(id: self.noteId, title: self.title, text: self.text, color: self.color, online_sync: false, visible: true, timestamp: 0)
+        noteRepository.noteSyncWithServer(note: note, online: networkService.isNetworkAvailable(), completionHandler: {_,_ in 
+        })
+        noteRepository.insertNote(noteEntity: note, completionHandler: {_ in
             self.hasBeenDone = true
         })
     }
@@ -49,5 +45,6 @@ class NoteDetailScreenViewModel:ObservableObject{
             })
         }
     }
+    
     
 }

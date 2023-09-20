@@ -14,11 +14,13 @@ struct NoteDetailScreen:View{
     
     @ObservedObject var viewModel:NoteDetailScreenViewModel
     var noteId:String?
+    private var noteRepository:NoteRepository
     
     @Environment(\.presentationMode) var presentation
 
     
     init(noteid:String?, noteRepository:NoteRepository){
+        self.noteRepository = noteRepository
         self.viewModel = NoteDetailScreenViewModel(noteRepository: noteRepository)
         self.noteId = noteid
     }
@@ -33,10 +35,30 @@ struct NoteDetailScreen:View{
                 self.presentation.wrappedValue.dismiss()
             }
         }
-        VStack{
+        NavigationLink(
+            destination: NotesScreen(notesRepository: noteRepository),
+            isActive: $viewModel.hasBeenDone
+        ){
+            EmptyView()
+        }
+        .navigationBarHidden(true)
+        VStack(alignment: .leading){
+            VStack(alignment:.leading){
+                Button(
+                    action: {
+                        viewModel.saveNote()
+                    }
+                ){
+                    Image(systemName: "xmark")
+                        .foregroundColor(.black)
+                        .imageScale(.medium)
+                       
+                }
+            }.padding(6).padding(.bottom, 10)
             TextField("Enter a title...", text: $viewModel.title)
                 .font(.title)
-            TextField("Enter a content...", text: $viewModel.text).padding(.all, 8)
+                .padding(.leading, 6)
+            TextField("Enter a content...", text: $viewModel.text).padding(.all, 6)
             Spacer()
         }.onAppear{
             viewModel.loadNoteIfExists(id: noteId)
