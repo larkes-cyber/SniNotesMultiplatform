@@ -69,9 +69,7 @@ class NoteDetailViewModel @Inject constructor(
 
             val serverSyncRes = noteRepository.noteSyncWithServer(note,internetConnectionService.isOnline())
             note.online_sync = serverSyncRes.data != null
-            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id =
-                serverSyncRes.data!!
-
+            if(serverSyncRes.data != null && serverSyncRes.data != "Updated") note.id = serverSyncRes.data!!
             noteRepository.insertNote(note)
             _uiState.value = uiState.value.copy(noteHasBeenEdited = true)
         }

@@ -18,22 +18,29 @@ class NoteDetailScreenViewModel:ObservableObject{
     @Published var title:String = "" 
     @Published var text:String = ""
     @Published var hasBeenDone:Bool = false
+
+    
     private let networkService = NetworkReachability()
     
     init(noteRepository: NoteRepository) {
         self.noteRepository = noteRepository
     }
     
-    func saveNote(){
+    func saveData(){
+        print(self.noteId, "%%%%%%%%%%%%%%%%%")
         let note = Note(id: self.noteId, title: self.title, text: self.text, color: self.color, online_sync: false, visible: true, timestamp: 0)
-        noteRepository.noteSyncWithServer(note: note, online: networkService.isNetworkAvailable(), completionHandler: {_,_ in 
-        })
-        noteRepository.insertNote(noteEntity: note, completionHandler: {_ in
-            self.hasBeenDone = true
+       
+        noteRepository.noteSyncWithServer(note: note, online: self.networkService.isNetworkAvailable(), completionHandler: {res, error in
+            note.online_sync = res?.data != nil
+            print(note.id, "#####################################")
+            self.noteRepository.insertNote(noteEntity: note, completionHandler: {_ in
+                self.hasBeenDone = true
+            })
         })
     }
     
     func loadNoteIfExists(id:String?){
+        print(id, "$$$$$$$$")
         if id == nil{
             self.noteId = UUID().uuidString
         }else{

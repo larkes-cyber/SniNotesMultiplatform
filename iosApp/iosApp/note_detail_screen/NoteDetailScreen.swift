@@ -46,7 +46,7 @@ struct NoteDetailScreen:View{
             VStack(alignment:.leading){
                 Button(
                     action: {
-                        viewModel.saveNote()
+                        viewModel.saveData()
                     }
                 ){
                     Image(systemName: "xmark")

@@ -190,7 +190,7 @@ fun NotesScreen(
                 }
                 items(notesUiState.notesList.filter { it.visible }, {it.id!!}){ note ->
                     TaskItemView(
-                        title = note.title,
+                        title = note.id,
                         text = note.text,
                         color = Color(note.color),
                         selected = note in notesUiState.selectedNotes,

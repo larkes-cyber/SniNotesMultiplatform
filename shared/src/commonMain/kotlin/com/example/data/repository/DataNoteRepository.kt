@@ -19,6 +19,7 @@ class DataNoteRepository(
 ):NoteRepository {
 
     override suspend fun insertNote(noteEntity: Note) {
+        println(noteEntity.id + "#$%^&*(*&^%$%^&*(")
         noteDatabaseDataSource.insertNote(noteEntity.toNoteData())
     }
 
@@ -60,9 +61,12 @@ class DataNoteRepository(
                     note = note.toNoteDto(),
                     user = userDatabaseDataSource.observeUser()!!.toUser()
                 )
-                if (findNoteRes.message == null) updateNote(note)
+                if (findNoteRes.message == null) {
+                    updateNote(note)
+                }
                 else {
                     val id = pushNote(note = note)
+                    println(note.id + "^&*()_+dfdbfvcsedfbfdffsd")
                     noteDatabaseDataSource.deleteNote(note.toNoteData())
                     return Resource.Success(id.data)
                 }
