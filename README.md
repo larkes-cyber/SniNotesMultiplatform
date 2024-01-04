@@ -18,6 +18,8 @@ put your local ip to SNI_NOTES_URL variable in constants file in shared module
 launch android app in android studio and launch ios in xcode
 enjoy the app!
 
+Server: https://github.com/larkes-cyber/SniNotesBackend.git
+
 Login screen:
 
 <img width="1000" alt="Снимок экрана 2024-01-04 в 19 37 23" src="https://github.com/larkes-cyber/SniNotesMultiplatform/assets/79082708/08483928-aa6f-4e52-a7c6-1e3e053b2982">
