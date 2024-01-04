@@ -10,13 +10,13 @@ Features:
 - Android/Ios
 
 To use an app with server you need:
-download soure code
-download ktor server
-install mongodb
-launch the server
-put your local ip to SNI_NOTES_URL variable in constants file in shared module
-launch android app in android studio and launch ios in xcode
-enjoy the app!
+- download soure code
+- download ktor server
+- install mongodb
+- launch the server
+- put your local ip to SNI_NOTES_URL variable in constants file in shared module
+- launch android app in android studio and launch ios in xcode
+- enjoy the app!
 
 Server: https://github.com/larkes-cyber/SniNotesBackend.git
 
