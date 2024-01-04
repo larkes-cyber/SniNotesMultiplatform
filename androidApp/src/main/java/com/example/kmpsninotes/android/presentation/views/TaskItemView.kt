@@ -120,7 +120,7 @@ fun TaskItemView(
                                 modifier = Modifier
                                     .size(4.dp)
                                     .clip(RoundedCornerShape(100))
-                                    .background(AppTheme.colors.online_color)
+                                    .background(if(online_sync) AppTheme.colors.online_color else AppTheme.colors.offline_color)
                             ) {
 
                             }
