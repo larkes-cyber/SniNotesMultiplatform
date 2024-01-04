@@ -14,19 +14,14 @@ class SplashScreenViewModel:ObservableObject{
     func checkUserCached(){
         self.userRepository?.getUserData(completionHandler: { [self](user, error) in
             if user != nil{
-                do{
-                    try noteRepository.notesSynchronization(online: networkService.isNetworkAvailable(), completionHandler: {_,_ in
-                        self.authorizated = true
-                    })
-                }catch{
+                noteRepository.notesSynchronization(online: networkService.isNetworkAvailable(), completionHandler: {res, err in
+                    print(err)
                     self.authorizated = true
-
-                }
+                })
             }else{
                 self.authorizated = false
+                self.notAuthorizated = true
             }
-//            self.authorizated = user != nil
-//            self.notAuthorizated = user == nil
         })
     
     }

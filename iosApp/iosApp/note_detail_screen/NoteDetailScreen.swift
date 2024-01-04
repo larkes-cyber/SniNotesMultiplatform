@@ -65,5 +65,6 @@ struct NoteDetailScreen:View{
         }
         .padding()
         .background(Color(hex: viewModel.color))
+        
     }
 }

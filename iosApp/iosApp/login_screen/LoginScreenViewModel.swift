@@ -40,9 +40,9 @@ class LoginScreenViewModel:ObservableObject{
                 user: user,
                 completionHandler: { res, err in
                     self.error = res?.message
-                    if res!.message!.isEmpty{
+                    if res!.data != nil{
                         self.userRepository?.putUserData(user: user, completionHandler: {_ in
-                            self.hasBeenDone = res!.message!.isEmpty
+                            self.hasBeenDone = true
                         })
                     }
                 }

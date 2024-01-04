@@ -22,18 +22,18 @@ struct SplashScreen:View{
 
     var body: some View{
         
-        NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.authorizated){
-            EmptyView()
-            }.hidden()
-            .navigationBarHidden(true)
-        
-        NavigationLink(destination: LoginScreen(userRepository: userRepostory, noteRepsistory: noteRepository), isActive: $viewModel.notAuthorizated){
-           EmptyView()
-            }.hidden()
-            .navigationBarHidden(true)
-        
+        let _ = print(String(viewModel.authorizated) + "  ############")
+        let _ = print(String(viewModel.notAuthorizated) + "  ############")
         VStack{
+            NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.authorizated){
+                EmptyView()
+                }.hidden()
+                .navigationBarHidden(true)
             
+            NavigationLink(destination: LoginScreen(userRepository: userRepostory, noteRepsistory: noteRepository), isActive: $viewModel.notAuthorizated){
+               EmptyView()
+                }.hidden()
+                .navigationBarHidden(true)
         }
     }
 }

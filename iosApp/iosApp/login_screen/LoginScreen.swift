@@ -26,17 +26,14 @@ struct LoginScreen:View{
 
         
         let isSignUp = viewModel.isSignUp
-        
+//        
+        NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.hasBeenDone){
+                           EmptyView()
+                       }.hidden()
+                    .navigationBarHidden(true)
+
         
         VStack{
-            
-            NavigationLink(destination: NotesScreen(notesRepository: noteRepository), isActive: $viewModel.hasBeenDone){
-                               EmptyView()
-                           }.hidden()
-                        .navigationBarHidden(true)
-
-    
-            
             Text(isSignUp ? "Sign up now" : "Sign in now" )
                 .font(.system(size: 32, weight: .medium))
                 .padding(.bottom, 14)

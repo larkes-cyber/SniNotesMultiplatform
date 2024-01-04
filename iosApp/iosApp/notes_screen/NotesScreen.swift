@@ -19,12 +19,14 @@ struct NotesScreen: View {
     }
     
     var body: some View {
+        
+        
+        NavigationLink(destination: NoteDetailScreen(noteid: viewModel.selectedNoteId, noteRepository: noteRepository), isActive: $viewModel.isNoteSelected){
+            EmptyView()
+        }.hidden()
+        .navigationBarHidden(true)
+        
         VStack(alignment:.trailing, spacing: 0){
-            
-            NavigationLink(destination: NoteDetailScreen(noteid: viewModel.selectedNoteId, noteRepository: noteRepository), isActive: $viewModel.isNoteSelected){
-                EmptyView()
-            }.hidden()
-            .navigationBarHidden(true)
             
             TopAppBar<NoteDetailScreen>(destinationProvider: {
                 NoteDetailScreen(noteid: nil, noteRepository: noteRepository)
@@ -45,7 +47,6 @@ struct NotesScreen: View {
                     }
                 }
             }.onAppear{
-                let _ = print("sdfgfddfeddddd")
                 viewModel.setupModel(noteReppository: noteRepository)
                 viewModel.loadNotes()
                 viewModel.checkOnline()

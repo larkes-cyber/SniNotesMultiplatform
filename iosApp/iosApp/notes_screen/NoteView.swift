@@ -19,7 +19,7 @@ struct NoteView:View{
     var body:some View{
         VStack{
             HStack{
-                Text(note.id).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
+                Text(note.title).frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, alignment: .leading)
                     .font(.title3)
                 Spacer()
                 Button(action: {

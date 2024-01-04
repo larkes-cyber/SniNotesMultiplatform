@@ -68,7 +68,7 @@ class LoginScreenViewModel @Inject constructor(
                 Login(
                 login = uiState.value.emailTextFieldValue,
                 password = uiState.value.passwordTextFieldValue
-            )
+              )
             )
             if (session.data != null){
                 val user = userRepository.observeUserData(

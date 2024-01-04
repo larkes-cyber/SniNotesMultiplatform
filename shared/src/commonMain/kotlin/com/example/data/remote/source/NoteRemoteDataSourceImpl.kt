@@ -2,6 +2,7 @@ package com.example.data.remote.source
 import com.example.data.remote.http_client.httpClient
 import com.example.data.remote.model.NoteDto
 import com.example.data.remote.model.NotesDto
+import com.example.domain.mapper.toNote
 import com.example.domain.model.User
 import com.example.until.Resource
 import io.ktor.client.*
@@ -33,6 +34,9 @@ class NoteRemoteDataSourceImpl(
     override suspend fun pushNote(note: NoteDto, user: User): Resource<String> {
 
         return try {
+
+            println(note.toString() + "   ########")
+
             val response: HttpResponse = client.post(NoteRemoteDataSource.Endpoints.SingleNote.url){
                 url {
                     parameters.append("session", user.session)
